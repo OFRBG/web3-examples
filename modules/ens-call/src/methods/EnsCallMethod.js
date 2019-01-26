@@ -12,7 +12,7 @@
     along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
- * @file EnsCallMethod.js
+ * @file StarterMethod.js
  * @author Samuel Furter <samuel@ethereum.org>
  * @date 2019
  */

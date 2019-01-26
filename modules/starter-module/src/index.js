@@ -12,24 +12,34 @@
     along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
- * @file StarterModule.js
+ * @file index.js
  * @author Samuel Furter <samuel@ethereum.org>
  * @date 2019
  */
 
-import {AbstractWeb3Module} from 'web3-core';
+import * as Utils from 'web3-utils';
+import {formatters} from 'web3-core-helpers';
+import {MethodModuleFactory} from 'web3-core-method';
+import {ProvidersModuleFactory} from 'web3-providers';
+import StarterMethodFactory from './factories/StarterMethodFactory'
+import StarterModule from "./StarterModule";
 
-export default class EnsCallModule extends AbstractWeb3Module {
-  /**
-   * @param {EthereumProvider|HttpProvider|WebsocketProvider|IpcProvider|String} provider
-   * @param {ProvidersModuleFactory} providersModuleFactory
-   * @param {MethodModuleFactory} methodModuleFactory
-   * @param {StarterMethodFactory} customMethodFactory
-   * @param {Object} options
-   *
-   * @constructor
-   */
-  constructor(provider, providersModuleFactory, methodModuleFactory, customMethodFactory, options) {
-    super(provider, providersModuleFactory, methodModuleFactory, customMethodFactory, options);
-  }
-}
+/**
+ * @param provider
+ * @param options
+ *
+ * @returns {StarterModule}
+ *
+ * @constructor
+ */
+export const Starter = (provider, options) => {
+  const methodModuleFactory = new MethodModuleFactory();
+
+  return new StarterModule(
+    provider,
+    new ProvidersModuleFactory(),
+    methodModuleFactory,
+    new StarterMethodFactory(methodModuleFactory, Utils, formatters),
+    options
+  );
+};

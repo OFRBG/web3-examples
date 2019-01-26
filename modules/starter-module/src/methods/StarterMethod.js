@@ -12,24 +12,37 @@
     along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
- * @file StarterModule.js
+ * @file StarterMethod.js
  * @author Samuel Furter <samuel@ethereum.org>
  * @date 2019
  */
 
-import {AbstractWeb3Module} from 'web3-core';
+import {GetBalanceMethod} from 'web3-core-method';
 
-export default class EnsCallModule extends AbstractWeb3Module {
+export default class StarterMethod extends GetBalanceMethod {
   /**
-   * @param {EthereumProvider|HttpProvider|WebsocketProvider|IpcProvider|String} provider
-   * @param {ProvidersModuleFactory} providersModuleFactory
-   * @param {MethodModuleFactory} methodModuleFactory
-   * @param {StarterMethodFactory} customMethodFactory
-   * @param {Object} options
+   * @param {Utils} utils
+   * @param {Object} formatters
    *
    * @constructor
    */
-  constructor(provider, providersModuleFactory, methodModuleFactory, customMethodFactory, options) {
-    super(provider, providersModuleFactory, methodModuleFactory, customMethodFactory, options);
+  constructor(utils, formatters) {
+    super(utils, formatters);
+  }
+
+  /**
+   * Sends a JSON-RPC call request
+   *
+   * @method execute
+   *
+   * @param {AbstractWeb3Module} moduleInstance
+   *
+   * @callback callback callback(error, result)
+   * @returns {Promise<Object|String>}
+   */
+  async execute(moduleInstance) {
+    const balance = await super.execute(moduleInstance);
+
+    return (balance + 100);
   }
 }

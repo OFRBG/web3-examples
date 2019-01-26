@@ -19,7 +19,7 @@
 
 import {AbstractWeb3Module} from 'web3-core';
 
-export default class EnsCallModule extends AbstractWeb3Module {
+export default class StarterModule extends AbstractWeb3Module {
   /**
    * @param {EthereumProvider|HttpProvider|WebsocketProvider|IpcProvider|String} provider
    * @param {ProvidersModuleFactory} providersModuleFactory
