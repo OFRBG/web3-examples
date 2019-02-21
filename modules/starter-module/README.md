@@ -1,11 +1,11 @@
-## ENS Call Module
+## Starter Module
 
 ```
-import {EnsCall} from 'web3-module-ens-call';
+import {Starter} from 'starter-module';
 
-const ensCall = new EnsCall('http://localhost:7545' {});
+const starterModule = new Starter('ws://localhost:8545', options);
 
-ensCall.call({to: 'web3.eth', ...}).then(function(response) => {
-    console.log(response);
+starterModule.starter('0x0....').then(function(balance) => {
+    console.log(balance);
 });
 ``` 
