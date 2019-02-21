@@ -21,16 +21,18 @@ import * as Utils from 'web3-utils';
 import {formatters} from 'web3-core-helpers';
 import {MethodModuleFactory} from 'web3-core-method';
 import {ProvidersModuleFactory} from 'web3-providers';
+import {Contract} from 'web3-eth-contract';
+import {starterABI} from "./contracts/starter/starter-contract-abi";
 import StarterMethodFactory from './factories/StarterMethodFactory'
 import StarterModule from "./StarterModule";
 
 /**
- * @param provider
- * @param options
+ * Returns a object of type StarterModule
+ *
+ * @param {EthereumProvider|HttpProvider|WebsocketProvider|IpcProvider|String} provider
+ * @param {Object} options
  *
  * @returns {StarterModule}
- *
- * @constructor
  */
 export const Starter = (provider, options) => {
   const methodModuleFactory = new MethodModuleFactory();
@@ -43,3 +45,17 @@ export const Starter = (provider, options) => {
     options
   );
 };
+
+/**
+ * Returns a object of type MyContract
+ *
+ * @param {EthereumProvider|HttpProvider|WebsocketProvider|IpcProvider|String} provider
+ * @param {Accounts} accounts
+ *
+ * @returns {Contract}
+ */
+export const MyContract = (provider, accounts) => {
+  return new Contract(provider, accounts, starterABI, '0x9CC9a2c777605Af16872E0997b3Aeb91d96D5D8c', {});
+};
+
+export StarterContract from "./contracts/starter/StarterContract";
