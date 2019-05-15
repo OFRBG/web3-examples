@@ -1,6 +1,19 @@
 window.$docsify.plugins = (window.$docsify.plugins||[]).concat([
-  function(hook, vm) {
+  async function(hook, vm) {
+    var directoryUrl = `https://raw.githubusercontent.com/${config.orgName}/${config.repoName}/${config.branch}/example-src/directory.json`;
+    window.config.directory = window.config.directory || JSON.parse(await $.get(directoryUrl));
+
     var tagRegex = /<codesandbox.*>(\s+)?([^\s]*)(\s+)?<\/codesandbox>/g;
+    var isInDirectory = function(path) {
+      var pathStack = path.split('/');
+      return !!pathStack.reduce(function(path, component) {
+        return !path
+          ? null
+          : _.isArray(path)
+            ? path[path.indexOf(component)]
+            : path[component]
+      }, window.config.directory);
+    }
     var cleanup = function(html) {
       return html.replace(tagRegex, '<codesandbox example="$2" class="javascript"></codesandbox>');
     }
@@ -18,7 +31,9 @@ window.$docsify.plugins = (window.$docsify.plugins||[]).concat([
       return html.replace(tagRegex, iframe);
     }
     hook.beforeEach(function(content) {
-      return content.replace(tagRegex, `#### Example\n<codesandbox>$2</codesandbox>`)
+      return content.replace(tagRegex, function(match, p1, p2, p3) {
+        return isInDirectory(p2) ? `#### Example\n<codesandbox>${p2}</codesandbox>` : '';
+      });
     });
     hook.afterEach(function(html, next) {
       next(cleanup(embed(html)));
