@@ -1,7 +1,7 @@
 {
   "name": "root",
   "scripts": {
-    "build": "lerna install",
+    "build:dir": "node genDir.js",
     "test": "jest"
   },
   "devDependencies": {

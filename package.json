@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "docsify serve documentation",
-    "build": "cd example-src && npm install && lerna bootstrap --hoist",
+    "build": "cd example-src && npm install && lerna bootstrap --hoist && npm run build:dir",
     "test": "cd example-src && npm test",
     "compile": "bash ./scripts/build-index.sh"
   },

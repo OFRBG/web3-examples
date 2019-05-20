@@ -9,9 +9,7 @@ window.$docsify.plugins = (window.$docsify.plugins||[]).concat([
       return !!pathStack.reduce(function(path, component) {
         return !path
           ? null
-          : _.isArray(path)
-            ? path[path.indexOf(component)]
-            : path[component]
+          : path[component]
       }, window.config.directory);
     }
     var cleanup = function(html) {

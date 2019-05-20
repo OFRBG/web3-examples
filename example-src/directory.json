@@ -1,8 +1,6 @@
 {
-  "web3-eth": [
-    "getBlock",
-    "getBlockNumber"
-  ],
-  "web3-shh": [],
-  "web3-bzz": []
+  "web3-eth": {
+    "getBlock": true,
+    "getBlockNumber": true
+  }
 }
