@@ -1,5 +1,5 @@
 window.config = {
   repoName: "web3-examples",
-  orgName: "ethereum",
+  orgName: "OFRBG",
   branch: "development"
 }

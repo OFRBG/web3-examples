@@ -1,22 +1,24 @@
 window.$docsify.plugins = (window.$docsify.plugins||[]).concat([
   async function(hook, vm) {
-    var directoryUrl = `https://raw.githubusercontent.com/${config.orgName}/${config.repoName}/${config.branch}/example-src/directory.json`;
+    const directoryUrl = `https://raw.githubusercontent.com/${config.orgName}/${config.repoName}/${config.branch}/example-src/directory.json`;
     window.config.directory = window.config.directory || JSON.parse(await $.get(directoryUrl));
 
-    var tagRegex = /<codesandbox.*>(\s+)?([^\s]*)(\s+)?<\/codesandbox>/g;
-    var isInDirectory = function(path) {
-      var pathStack = path.split('/');
+    const tagRegex = /<codesandbox.*>(\s+)?([^\s]*)(\s+)?<\/codesandbox>/g;
+    const isInDirectory = function(path) {
+      const pathStack = path.split('/');
       return !!pathStack.reduce(function(path, component) {
         return !path
           ? null
           : path[component]
       }, window.config.directory);
     }
-    var cleanup = function(html) {
-      return html.replace(tagRegex, '<codesandbox example="$2" class="javascript"></codesandbox>');
+
+    const cleanup = function(html) {
+      return html.replace(tagRegex, '<codesandbox example="$2" class="javascript"> Loading... </codesandbox>');
     }
-    var embed = function(html) {
-      var iframe = (
+
+    const embed = function(html) {
+      const iframe = (
         `<codesandbox>$2</codesandbox><div style="display: flex; justify-content: center;">
           <button class="btn btn-web3js">Load CodeSandbox</button>
           <iframe
@@ -28,13 +30,19 @@ window.$docsify.plugins = (window.$docsify.plugins||[]).concat([
       );
       return html.replace(tagRegex, iframe);
     }
+
     hook.beforeEach(function(content) {
       return content.replace(tagRegex, function(match, p1, p2, p3) {
         return isInDirectory(p2) ? `#### Example\n<codesandbox>${p2}</codesandbox>` : '';
       });
     });
+
     hook.afterEach(function(html, next) {
       next(cleanup(embed(html)));
+    });
+
+    hook.ready(function(){
+      window.dispatchEvent(new Event('exampleLoad'));
     });
   },
 ]);
