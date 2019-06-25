@@ -38,7 +38,7 @@ web3.module.methodNameOrProperty(params [, optionalParams]);
 
 ## Example Microproject
 
-Below is the directory structire of the project documentation and its examples. The `reference` directory has a mirror structure to `example-src`. This allows us to use the CodeSandbox API easily by referencing the example counterpart with the codesandbox HTML tag. Instead of posting the files, CodeSandbox fetches them directly from GitHub. 
+Below is the directory structure of the project documentation and its examples. The `reference` directory has a mirror structure to `example-src`. This allows us to use the CodeSandbox API easily by referencing the example counterpart with the codesandbox HTML tag. Instead of posting the files, CodeSandbox fetches them directly from GitHub. 
 
 #### Directory Structure
 
